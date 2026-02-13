@@ -1,0 +1,634 @@
+
+        /* --- CSS VARIABLES & RESET --- */
+
+        :root {
+
+            --primary-color: #ed69ff; /* Emerald Green */
+
+            --primary-dark: #380596;
+
+            --text-color: #ffffff;
+
+            --text-muted: #d1d5db;
+
+            --bg-overlay: rgba(0, 0, 0, 0.4);
+
+            --glass-bg: rgba(255, 255, 255, 0.08);
+
+            --glass-border: rgba(255, 255, 255, 0.15);
+
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+            --input-bg: rgba(0, 0, 0, 0.2);
+
+            --error-color: #ef4444;
+
+        }
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+        }
+
+        body {
+
+            height: 100vh;
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            overflow: hidden;
+
+            background-color: #0f172a; /* Fallback color */
+
+        }
+
+        /* --- BACKGROUND & EFFECTS --- */
+
+        .bg-image {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            /* High quality vibrant realistic tropical background */
+
+            background-image: url('https://i.pinimg.com/1200x/e4/a9/4d/e4a94d4cd8008eede27d74e4d62f90d0.jpg');
+
+            background-size: cover;
+
+            background-position: center;
+
+            z-index: -2;
+
+            filter: blur(2px); /* Slight blur for depth */
+
+            transform: scale(1.05); /* Prevent blur edges */
+
+        }
+
+        .bg-overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            /* Vignette effect */
+
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+
+            z-index: -1;
+
+        }
+
+        /* --- GLASS CARD --- */
+
+        .container {
+
+            position: relative;
+
+            width: 420px; /* Slightly wider for social icons */
+
+            min-height: 620px; /* Increased height for social icons */
+
+            perspective: 1000px;
+
+        }
+
+        .glass-card {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%; /* Auto height handled by content */
+
+            background: var(--glass-bg);
+
+            backdrop-filter: blur(16px);
+
+            -webkit-backdrop-filter: blur(16px);
+
+            border: 1px solid var(--glass-border);
+
+            border-radius: 24px;
+
+            box-shadow: var(--glass-shadow);
+
+            padding: 40px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            overflow: hidden;
+
+        }
+
+        /* --- TYPOGRAPHY --- */
+
+        h2 {
+
+            color: var(--text-color);
+
+            font-size: 28px;
+
+            font-weight: 600;
+
+            text-align: center;
+
+            margin-bottom: 10px;
+
+            letter-spacing: 0.5px;
+
+        }
+
+        p.subtitle {
+
+            color: var(--text-muted);
+
+            text-align: center;
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+
+        }
+
+        /* --- FORMS WRAPPER (For sliding animation) --- */
+
+        .form-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 520px; /* Increased height to fit social buttons */
+
+        }
+
+        .form-section {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform: translateX(120%);
+
+        }
+
+        .form-section.active {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateX(0);
+
+        }
+
+        .form-section.inactive-left {
+
+            transform: translateX(-120%);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+        }
+
+        /* --- INPUT FIELDS --- */
+
+        .input-group {
+
+            position: relative;
+
+            margin-bottom: 20px;
+
+        }
+
+        .input-group input {
+
+            width: 100%;
+
+            padding: 14px 14px 14px 45px;
+
+            background: var(--input-bg);
+
+            border: 1px solid transparent;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            color: var(--text-color);
+
+            font-size: 15px;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .input-group input::placeholder {
+
+            color: rgba(255, 255, 255, 0.5);
+
+        }
+
+        .input-group input:focus {
+
+            border-color: var(--primary-color);
+
+            background: rgba(0, 0, 0, 0.4);
+
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+
+        }
+
+        /* Inline SVG Icons styling */
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 20px;
+
+            height: 20px;
+
+            fill: none;
+
+            stroke: var(--text-muted);
+
+            stroke-width: 2;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+
+            transition: stroke 0.3s ease;
+
+        }
+
+        .input-group input:focus + .input-icon {
+
+            stroke: var(--primary-color);
+
+        }
+
+        /* --- CHECKBOX & LINKS --- */
+
+        .options {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            font-size: 13px;
+
+            color: var(--text-muted);
+
+            margin-bottom: 25px;
+
+        }
+
+        .remember-me {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            cursor: pointer;
+
+        }
+
+        .remember-me input {
+
+            accent-color: var(--primary-color);
+
+            width: 14px;
+
+            height: 14px;
+
+            cursor: pointer;
+
+        }
+
+        .forgot-link {
+
+            color: var(--text-muted);
+
+            text-decoration: none;
+
+            transition: color 0.3s;
+
+        }
+
+        .forgot-link:hover {
+
+            color: var(--primary-color);
+
+        }
+
+        /* --- BUTTONS --- */
+
+        .btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+
+            border: none;
+
+            border-radius: 12px;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+
+            margin-bottom: 20px;
+
+        }
+
+        .btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+
+        }
+
+        .btn:active {
+
+            transform: translateY(0);
+
+        }
+
+        /* --- SOCIAL LOGIN --- */
+
+        .social-divider {
+
+            position: relative;
+
+            text-align: center;
+
+            margin: 10px 0 20px;
+
+        }
+
+        .social-divider span {
+
+            position: relative;
+
+            padding: 0 10px;
+
+            color: var(--text-muted);
+
+            font-size: 13px;
+
+            z-index: 1;
+
+        }
+
+        .social-divider::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 1px;
+
+            background: rgba(255, 255, 255, 0.2);
+
+            z-index: 0;
+
+        }
+
+        .social-icons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .social-btn {
+
+            width: 46px;
+
+            height: 46px;
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .social-btn:hover {
+
+            background: rgba(255, 255, 255, 0.15);
+
+            transform: translateY(-3px);
+
+            border-color: rgba(255, 255, 255, 0.3);
+
+        }
+
+        .social-btn svg {
+
+            width: 22px;
+
+            height: 22px;
+
+            fill: white;
+
+        }
+
+        /* --- SWITCH LINK --- */
+
+        .switch-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 14px;
+
+            color: var(--text-muted);
+
+        }
+
+        .switch-text a {
+
+            color: var(--primary-color);
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            margin-left: 5px;
+
+            cursor: pointer;
+
+        }
+
+        .switch-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+        /* --- TOAST NOTIFICATION --- */
+
+        #toast {
+
+            visibility: hidden;
+
+            min-width: 250px;
+
+            margin-left: -125px;
+
+            background-color: #333;
+
+            color: #fff;
+
+            text-align: center;
+
+            border-radius: 8px;
+
+            padding: 16px;
+
+            position: fixed;
+
+            z-index: 10;
+
+            left: 50%;
+
+            bottom: 30px;
+
+            font-size: 14px;
+
+            opacity: 0;
+
+            transition: opacity 0.5s, bottom 0.5s;
+
+            border-left: 4px solid var(--primary-color);
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+        }
+
+        #toast.show {
+
+            visibility: visible;
+
+            opacity: 1;
+
+            bottom: 50px;
+
+        }
+
+        #toast.error {
+
+            border-left-color: var(--error-color);
+
+        }
+
+        /* --- RESPONSIVE --- */
+
+        @media (max-width: 480px) {
+
+            .container {
+
+                width: 90%;
+
+                min-height: 500px;
+
+            }
+
+            .glass-card {
+
+                padding: 30px 20px;
+
+            }
+
+            h2 { font-size: 24px; }
+
+        }
